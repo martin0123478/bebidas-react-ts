@@ -1,7 +1,10 @@
-import React from 'react'
+import { Header } from "../components/Header"
+
 
 export const IndexPage = () => {
     return (
-        <div>IndexPage</div>
+        <>
+            <h1>Inicio</h1>
+        </>
     )
 }
