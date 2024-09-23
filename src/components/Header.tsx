@@ -41,7 +41,13 @@ export const Header = () => {
                                 htmlFor="ingredient">Categoria</label>
                             <select id="ingredient" name="ingrediente" className="p-3 w-full rounded-lg focus:outline-none"
                             >
+                                { }
                                 <option>Selecciones</option>
+                                {
+                                    categories.drinks.map(category => (
+                                        <option id={category.strCategory} value={category.strCategory}>{category.strCategory}</option>
+                                    ))
+                                }
                             </select>
                         </div>
                         <input className="cursor-pointer bg-orange-800 hover:bg-orange-900 text-white font-extrabold w-full p-2 rounded-lg uppercase" type="submit" value='Buscar Recetas' />
