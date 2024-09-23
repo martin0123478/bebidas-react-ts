@@ -44,7 +44,7 @@ export const Header = () => {
                         <div className="space-y-4">
                             <label className="block text-white uppercase font-extrabold text-lg"
                                 htmlFor="ingredient">Nombre o Ingredientes</label>
-                            <input onChange={handleChange} value={searchFilter.ingridient} type="text" id="ingredient" name="ingrediente" className="p-3 w-full rounded-lg focus:outline-none"
+                            <input onChange={handleChange} value={searchFilter.ingredient} type="text" id="ingredient" name="ingrediente" className="p-3 w-full rounded-lg focus:outline-none"
                                 placeholder="Nombre o Ingrediente" />
                         </div>
                         <div className="space-y-4">
