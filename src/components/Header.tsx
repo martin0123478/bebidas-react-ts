@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { FormEvent, useEffect, useMemo, useState } from "react"
 import { NavLink, useLocation } from "react-router-dom"
 import { useAppStore } from "../stores/useAppStore"
 
@@ -14,6 +14,7 @@ export const Header = () => {
 
     const fetchCategorties = useAppStore((state) => state.fetchCategorties)
     const categories = useAppStore((state) => state.categories)
+    const searchRecipies = useAppStore((state) => state.searchRecipies)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
 
@@ -21,6 +22,17 @@ export const Header = () => {
             ...searchFilter,
             [e.target.name]: e.target.value
         })
+    }
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (Object.values(searchFilter).includes('')) {
+            console.log('Todos los campos son obligatorios')
+            return
+        }
+        //consultar recetas
+        searchRecipies(searchFilter)
+
     }
     useEffect(() => {
         fetchCategorties()
@@ -40,11 +52,11 @@ export const Header = () => {
 
                 </div>
                 {isHome && (
-                    <form className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6">
+                    <form onSubmit={handleSubmit} className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6">
                         <div className="space-y-4">
                             <label className="block text-white uppercase font-extrabold text-lg"
                                 htmlFor="ingredient">Nombre o Ingredientes</label>
-                            <input onChange={handleChange} value={searchFilter.ingredient} type="text" id="ingredient" name="ingrediente" className="p-3 w-full rounded-lg focus:outline-none"
+                            <input onChange={handleChange} value={searchFilter.ingredient} type="text" id="ingredient" name="ingredient" className="p-3 w-full rounded-lg focus:outline-none"
                                 placeholder="Nombre o Ingrediente" />
                         </div>
                         <div className="space-y-4">
