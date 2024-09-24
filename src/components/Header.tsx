@@ -16,6 +16,7 @@ export const Header = () => {
     const categories = useAppStore((state) => state.categories)
     const searchRecipies = useAppStore((state) => state.searchRecipies)
 
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
 
         setSearchFilter({
