@@ -5,10 +5,12 @@ import type { Categories, Drink, Drinks, Recipie, SearchFilter } from "../types"
 export type createRecipeSliceType = {
     categories: Categories,
     drinks: Drinks,
-    selecteRecipie: Recipie
+    selecteRecipie: Recipie,
+    modal: boolean
     fetchCategorties: () => Promise<void>
     searchRecipies: (searchFilter: SearchFilter) => Promise<void>
     selectRecipe: (id: Drink['idDrink']) => Promise<void>
+    closeModal: () => void
 }
 
 export const createRecipeSlice: StateCreator<createRecipeSliceType> = (set) => ({
@@ -18,6 +20,7 @@ export const createRecipeSlice: StateCreator<createRecipeSliceType> = (set) => (
     drinks: {
         drinks: []
     },
+    modal: false,
     selecteRecipie: {} as Recipie,
     fetchCategorties: async () => {
         const categories = await getCategories()
@@ -35,7 +38,14 @@ export const createRecipeSlice: StateCreator<createRecipeSliceType> = (set) => (
     selectRecipe: async (id) => {
         const selecteRecipie = await getRecipieById(id)
         set({
-            selecteRecipie
+            selecteRecipie,
+            modal: true
+        })
+    },
+    closeModal: () => {
+        set({
+            modal: false,
+            selecteRecipie: {} as Recipie
         })
     }
 
