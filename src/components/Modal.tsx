@@ -7,6 +7,7 @@ export default function Modal() {
     const modal = useAppStore((state) => state.modal)
     const closeModal = useAppStore((state) => state.closeModal)
     const selecteRecipie = useAppStore((state) => state.selecteRecipie)
+    const handleFavorite = useAppStore((state) => state.handleFavorite)
 
     const renderIngredients = () => {
         const ingredients: JSX.Element[] = []
@@ -71,6 +72,7 @@ export default function Modal() {
                                             className='w-full bg-gray-600 p-3 text-white hover:bg-gray-500' onClick={closeModal}>Cerrar</button>
 
                                         <button type='button'
+                                            onClick={() => handleFavorite(selecteRecipie)}
                                             className='w-full bg-orange-600 p-3 text-white hover:bg-orange-500'>Agregar a Favoritos</button>
                                     </div>
                                 </Dialog.Panel>
