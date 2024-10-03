@@ -1,10 +1,28 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { useAppStore } from '../stores/useAppStore';
+import { Recipie } from '../types';
 
 export default function Modal() {
     const modal = useAppStore((state) => state.modal)
     const closeModal = useAppStore((state) => state.closeModal)
+    const selecteRecipie = useAppStore((state) => state.selecteRecipie)
+
+    const renderIngredients = () => {
+        const ingredients: JSX.Element[] = []
+        for (let i = 1; i < 6; i++) {
+            const ingredient = selecteRecipie[`strIngredient${i}` as keyof Recipie]
+            const measure = selecteRecipie[`strMeasure${i}` as keyof Recipie]
+            if (ingredient && measure) {
+                ingredients.push(
+                    <li key={i} className='text-lg font-normal'>
+                        {ingredient} - {measure}
+                    </li>
+                )
+            }
+        }
+        return ingredients
+    }
 
     return (
         <>
@@ -35,14 +53,19 @@ export default function Modal() {
                             >
                                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6" >
                                     <Dialog.Title as="h3" className="text-gray-900 text-4xl font-extrabold my-5 text-center">
-                                        Titulo Aquí
+                                        {selecteRecipie.strDrink}
                                     </Dialog.Title>
+                                    <img src={selecteRecipie.strDrinkThumb}
+                                        alt={`imagen de ${selecteRecipie.strDrink}`}
+                                        className='mx-auto w-96' />
                                     <Dialog.Title as="h3" className="text-gray-900 text-2xl font-extrabold my-5">
                                         Ingredientes y Cantidades
                                     </Dialog.Title>
+                                    {renderIngredients()}
                                     <Dialog.Title as="h3" className="text-gray-900 text-2xl font-extrabold my-5">
                                         Instrucciones
                                     </Dialog.Title>
+                                    <p className='text-lg'>{selecteRecipie.strInstructions}</p>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
