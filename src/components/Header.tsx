@@ -15,6 +15,7 @@ export const Header = () => {
     const fetchCategorties = useAppStore((state) => state.fetchCategorties)
     const categories = useAppStore((state) => state.categories)
     const searchRecipies = useAppStore((state) => state.searchRecipies)
+    const showNotification = useAppStore((state) => state.showNotification)
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
@@ -28,7 +29,10 @@ export const Header = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (Object.values(searchFilter).includes('')) {
-            console.log('Todos los campos son obligatorios')
+            showNotification({
+                text: 'Todos los campos son obligatorios',
+                error: true
+            })
             return
         }
         //consultar recetas
